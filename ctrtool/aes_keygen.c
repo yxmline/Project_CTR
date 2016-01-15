@@ -40,18 +40,10 @@ void n128_add(const uint8_t *a, const uint8_t *b, uint8_t *out)
 	uint8_t carry = 0;
 	uint32_t sum = 0;
 
-	for (int i = 15; i >= 0; i--) {
+	for (int32_t i = 15; i >= 0; i--) {
 		sum = a[i] + b[i] + carry;
 		carry = sum >> 8;
 		out[i] = sum & 0xff;
-	}
-
-	while (carry != 0) {
-		for (int i = 15; i >= 0; i--) {
-			sum = out[i] + carry;
-			carry = sum >> 8;
-			out[i] = sum & 0xff;
-		}
 	}
 }
 
@@ -62,7 +54,7 @@ void n128_sub(const uint8_t *a, const uint8_t *b, uint8_t *out)
 	uint8_t carry = 0;
 	uint32_t sum = 0;
 
-	for (int i = 15; i >= 0; i--) {
+	for (int32_t i = 15; i >= 0; i--) {
 		sum = a[i] - (b[i] + carry);
 
 		// check to see if anything was borrowed from next byte
@@ -77,25 +69,6 @@ void n128_sub(const uint8_t *a, const uint8_t *b, uint8_t *out)
 		// set value
 		out[i] = sum & 0xff;
 	}
-
-
-	while (carry != 0) {
-		for (int i = 15; i >= 0; i--) {
-			sum = out[i] - carry;
-
-			// check to see if anything was borrowed from next byte
-			if (out[i] < carry) {
-				sum += 0x100;
-				carry = 1;
-			}
-			else {
-				carry = 0;
-			}
-
-			out[i] = sum & 0xff;
-		}
-	}
-
 }
 
 void n128_xor(const uint8_t *a, const uint8_t *b, uint8_t *out)
