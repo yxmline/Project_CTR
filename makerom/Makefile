@@ -13,14 +13,14 @@ ifneq (, $(findstring linux, $(SYS)))
 else ifneq (, $(findstring cygwin, $(SYS)))
     # Cygwin
     CFLAGS += -Wno-unused-but-set-variable
-    LIBS += -liconv
+    LIBS += -liconv -static -static-libgcc
 else ifneq (, $(findstring darwin, $(SYS)))
     # OS X
     LIBS += -liconv
 else
     #Windows Build CFG
     CFLAGS += -Wno-unused-but-set-variable
-    LIBS += -static-libgcc
+    LIBS += -static -static-libgcc
 endif
 
 # MAKEROM Build Settings
