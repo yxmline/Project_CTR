@@ -22,7 +22,7 @@ else ifneq (, $(findstring darwin, $(SYS)))
 else
     #Windows Build CFG
     CFLAGS += -Wno-unused-but-set-variable
-    LIBS += -static -static-libgcc -static-libstdc++
+    LIBS += -static-libgcc -static-libstdc++
 endif
 
 main: $(OBJS)
